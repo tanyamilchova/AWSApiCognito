@@ -1,0 +1,4 @@
+2025-03-05 15:26:38,776 [INFO] USER:tanya_milchova generate.py:72:project LOG: Project name: task11
+2025-03-05 15:26:38,777 [INFO] USER:tanya_milchova generate.py:79:project LOG: Project path: C:\Users\tanya_milchova\IdeaProjects\AWSRepo\Task11\AWSApiCognito
+2025-03-05 15:26:38,783 [INFO] USER:tanya_milchova project.py:77:generate_project_structure LOG: Project task11 folder has been successfully created.
+2025-03-05 15:26:38,783 [INFO] USER:tanya_milchova helper.py:330:timed LOG: Stage project, elapsed time: 0:00:00.007175

@@ -1,0 +1,96 @@
+2025-03-06 10:41:50,603 [INFO] USER:tanya_milchova handlers.py:106:syndicate LOG: Configuration used: C:Userstanya_milchovaIdeaProjectsAWSAWSDemo.syndicate-config-dev
+2025-03-06 10:41:50,604 [ERROR] USER:tanya_milchova decorators.py:136:wrapper LOG: sdct.conf does not exist inside C:Userstanya_milchovaIdeaProjectsAWSAWSDemo.syndicate-config-dev folder
+2025-03-06 10:41:50,605 [ERROR] USER:tanya_milchova decorators.py:137:wrapper LOG: Traceback (most recent call last):
+  File "C:\Users\tanya_milchova\AppData\Local\Programs\Python\Python313\Lib\site-packages\syndicate\core\decorators.py", line 134, in wrapper
+    return_code = func(*args, **kwargs)
+  File "C:\Users\tanya_milchova\AppData\Local\Programs\Python\Python313\Lib\site-packages\syndicate\core\handlers.py", line 107, in syndicate
+    initialize_connection()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\tanya_milchova\AppData\Local\Programs\Python\Python313\Lib\site-packages\syndicate\core\__init__.py", line 106, in initialize_connection
+    CONFIG = ConfigHolder(CONF_PATH)
+  File "C:\Users\tanya_milchova\AppData\Local\Programs\Python\Python313\Lib\site-packages\syndicate\core\conf\processor.py", line 63, in __init__
+    self._init_conf_config(dir_path=dir_path)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tanya_milchova\AppData\Local\Programs\Python\Python313\Lib\site-packages\syndicate\core\conf\processor.py", line 92, in _init_conf_config
+    raise AssertionError(
+        'sdct.conf does not exist inside %s folder' % dir_path)
+AssertionError: sdct.conf does not exist inside C:Userstanya_milchovaIdeaProjectsAWSAWSDemo.syndicate-config-dev folder
+Traceback (most recent call last):
+  File "C:\Users\tanya_milchova\AppData\Local\Programs\Python\Python313\Lib\site-packages\syndicate\core\decorators.py", line 134, in wrapper
+    return_code = func(*args, **kwargs)
+  File "C:\Users\tanya_milchova\AppData\Local\Programs\Python\Python313\Lib\site-packages\syndicate\core\handlers.py", line 107, in syndicate
+    initialize_connection()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\tanya_milchova\AppData\Local\Programs\Python\Python313\Lib\site-packages\syndicate\core\__init__.py", line 106, in initialize_connection
+    CONFIG = ConfigHolder(CONF_PATH)
+  File "C:\Users\tanya_milchova\AppData\Local\Programs\Python\Python313\Lib\site-packages\syndicate\core\conf\processor.py", line 63, in __init__
+    self._init_conf_config(dir_path=dir_path)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tanya_milchova\AppData\Local\Programs\Python\Python313\Lib\site-packages\syndicate\core\conf\processor.py", line 92, in _init_conf_config
+    raise AssertionError(
+        'sdct.conf does not exist inside %s folder' % dir_path)
+AssertionError: sdct.conf does not exist inside C:Userstanya_milchovaIdeaProjectsAWSAWSDemo.syndicate-config-dev folder
+2025-03-06 12:34:52,719 [INFO] USER:tanya_milchova handlers.py:106:syndicate LOG: Configuration used: C:Userstanya_milchovaIdeaProjectsAWSAWSDemo.syndicate-config-dev
+2025-03-06 12:34:52,720 [ERROR] USER:tanya_milchova decorators.py:136:wrapper LOG: sdct.conf does not exist inside C:Userstanya_milchovaIdeaProjectsAWSAWSDemo.syndicate-config-dev folder
+2025-03-06 12:34:52,721 [ERROR] USER:tanya_milchova decorators.py:137:wrapper LOG: Traceback (most recent call last):
+  File "C:\Users\tanya_milchova\AppData\Local\Programs\Python\Python313\Lib\site-packages\syndicate\core\decorators.py", line 134, in wrapper
+    return_code = func(*args, **kwargs)
+  File "C:\Users\tanya_milchova\AppData\Local\Programs\Python\Python313\Lib\site-packages\syndicate\core\handlers.py", line 107, in syndicate
+    initialize_connection()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\tanya_milchova\AppData\Local\Programs\Python\Python313\Lib\site-packages\syndicate\core\__init__.py", line 106, in initialize_connection
+    CONFIG = ConfigHolder(CONF_PATH)
+  File "C:\Users\tanya_milchova\AppData\Local\Programs\Python\Python313\Lib\site-packages\syndicate\core\conf\processor.py", line 63, in __init__
+    self._init_conf_config(dir_path=dir_path)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tanya_milchova\AppData\Local\Programs\Python\Python313\Lib\site-packages\syndicate\core\conf\processor.py", line 92, in _init_conf_config
+    raise AssertionError(
+        'sdct.conf does not exist inside %s folder' % dir_path)
+AssertionError: sdct.conf does not exist inside C:Userstanya_milchovaIdeaProjectsAWSAWSDemo.syndicate-config-dev folder
+Traceback (most recent call last):
+  File "C:\Users\tanya_milchova\AppData\Local\Programs\Python\Python313\Lib\site-packages\syndicate\core\decorators.py", line 134, in wrapper
+    return_code = func(*args, **kwargs)
+  File "C:\Users\tanya_milchova\AppData\Local\Programs\Python\Python313\Lib\site-packages\syndicate\core\handlers.py", line 107, in syndicate
+    initialize_connection()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\tanya_milchova\AppData\Local\Programs\Python\Python313\Lib\site-packages\syndicate\core\__init__.py", line 106, in initialize_connection
+    CONFIG = ConfigHolder(CONF_PATH)
+  File "C:\Users\tanya_milchova\AppData\Local\Programs\Python\Python313\Lib\site-packages\syndicate\core\conf\processor.py", line 63, in __init__
+    self._init_conf_config(dir_path=dir_path)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tanya_milchova\AppData\Local\Programs\Python\Python313\Lib\site-packages\syndicate\core\conf\processor.py", line 92, in _init_conf_config
+    raise AssertionError(
+        'sdct.conf does not exist inside %s folder' % dir_path)
+AssertionError: sdct.conf does not exist inside C:Userstanya_milchovaIdeaProjectsAWSAWSDemo.syndicate-config-dev folder
+2025-03-06 14:12:59,709 [INFO] USER:tanya_milchova handlers.py:106:syndicate LOG: Configuration used: C:Userstanya_milchovaIdeaProjectsAWSAWSDemo.syndicate-config-dev
+2025-03-06 14:12:59,710 [ERROR] USER:tanya_milchova decorators.py:136:wrapper LOG: sdct.conf does not exist inside C:Userstanya_milchovaIdeaProjectsAWSAWSDemo.syndicate-config-dev folder
+2025-03-06 14:12:59,712 [ERROR] USER:tanya_milchova decorators.py:137:wrapper LOG: Traceback (most recent call last):
+  File "C:\Users\tanya_milchova\AppData\Local\Programs\Python\Python313\Lib\site-packages\syndicate\core\decorators.py", line 134, in wrapper
+    return_code = func(*args, **kwargs)
+  File "C:\Users\tanya_milchova\AppData\Local\Programs\Python\Python313\Lib\site-packages\syndicate\core\handlers.py", line 107, in syndicate
+    initialize_connection()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\tanya_milchova\AppData\Local\Programs\Python\Python313\Lib\site-packages\syndicate\core\__init__.py", line 106, in initialize_connection
+    CONFIG = ConfigHolder(CONF_PATH)
+  File "C:\Users\tanya_milchova\AppData\Local\Programs\Python\Python313\Lib\site-packages\syndicate\core\conf\processor.py", line 63, in __init__
+    self._init_conf_config(dir_path=dir_path)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tanya_milchova\AppData\Local\Programs\Python\Python313\Lib\site-packages\syndicate\core\conf\processor.py", line 92, in _init_conf_config
+    raise AssertionError(
+        'sdct.conf does not exist inside %s folder' % dir_path)
+AssertionError: sdct.conf does not exist inside C:Userstanya_milchovaIdeaProjectsAWSAWSDemo.syndicate-config-dev folder
+Traceback (most recent call last):
+  File "C:\Users\tanya_milchova\AppData\Local\Programs\Python\Python313\Lib\site-packages\syndicate\core\decorators.py", line 134, in wrapper
+    return_code = func(*args, **kwargs)
+  File "C:\Users\tanya_milchova\AppData\Local\Programs\Python\Python313\Lib\site-packages\syndicate\core\handlers.py", line 107, in syndicate
+    initialize_connection()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\tanya_milchova\AppData\Local\Programs\Python\Python313\Lib\site-packages\syndicate\core\__init__.py", line 106, in initialize_connection
+    CONFIG = ConfigHolder(CONF_PATH)
+  File "C:\Users\tanya_milchova\AppData\Local\Programs\Python\Python313\Lib\site-packages\syndicate\core\conf\processor.py", line 63, in __init__
+    self._init_conf_config(dir_path=dir_path)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tanya_milchova\AppData\Local\Programs\Python\Python313\Lib\site-packages\syndicate\core\conf\processor.py", line 92, in _init_conf_config
+    raise AssertionError(
+        'sdct.conf does not exist inside %s folder' % dir_path)
+AssertionError: sdct.conf does not exist inside C:Userstanya_milchovaIdeaProjectsAWSAWSDemo.syndicate-config-dev folder
