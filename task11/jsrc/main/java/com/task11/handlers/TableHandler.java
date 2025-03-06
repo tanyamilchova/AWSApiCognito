@@ -4,16 +4,13 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
-//import com.amazonaws.services.lambda.runtime.events.models.dynamodb.AttributeValue;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.*;
-import com.task11.entity.*;
+import com.task11.entity.Table;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -32,7 +29,6 @@ public class TableHandler implements RequestHandler<APIGatewayProxyRequestEvent,
         } else if ("POST".equals(httpMethod) && path.equals("/tables")) {
             return addTable(requestEvent.getBody());
         } else if ("GET".equals(httpMethod) && path.matches("/tables/\\d+")) {
-//            return getTableById(path.substring(path.lastIndexOf("/") + 1));
             try {
                 return getTableById(path.substring(path.lastIndexOf("/") + 1));
             } catch (Exception e) {
@@ -53,7 +49,8 @@ public class TableHandler implements RequestHandler<APIGatewayProxyRequestEvent,
 
             ScanResponse scanResponse = dynamoDbClient.scan(scanRequest);
 
-            JSONArray tablesArray = new JSONArray(scanResponse.items().stream().map(this::mapToTableJson).collect(Collectors.toList()));
+            JSONArray tablesArray = new JSONArray(scanResponse.items().stream().map(this::mapToTableJson)
+                    .collect(Collectors.toList()));
 
             return new APIGatewayProxyResponseEvent()
                     .withStatusCode(200)
@@ -69,7 +66,6 @@ public class TableHandler implements RequestHandler<APIGatewayProxyRequestEvent,
         try {
             GetItemRequest getItemRequest = GetItemRequest.builder()
                     .tableName(TABLES_TABLE_NAME)
-//                    .key(Map.of("id", AttributeValue.builder().n(tableId).build()))
                     .key(Map.of("id", AttributeValue.builder().s(tableId).build()))
                     .build();
 
@@ -96,17 +92,8 @@ public class TableHandler implements RequestHandler<APIGatewayProxyRequestEvent,
     private APIGatewayProxyResponseEvent addTable(String body) {
         Map<String, AttributeValue> item = new LinkedHashMap<>();
         try {
-//            Table table = Table.fromJson(body);
-            /// ///////////////////
-            JSONObject json = new JSONObject(body);
-            Table table =   new Table(
-                    json.getInt("id"),
-                    json.getInt("number"),
-                    json.getInt("places"),
-                    json.getBoolean("isVip"),
-                    json.has("minOrder") ? json.getInt("minOrder") : null
-            );
-            /// ///////////////////////
+            Table table = Table.fromJson(body);
+
 
             item.put("id", AttributeValue.builder().s(String.valueOf(table.getId())).build());
             item.put("number", AttributeValue.builder().n(String.valueOf(table.getNumber())).build());
@@ -117,12 +104,16 @@ public class TableHandler implements RequestHandler<APIGatewayProxyRequestEvent,
                     item.put("minOrder", AttributeValue.builder().n(String.valueOf(minOrder)).build())
             );
 
+
+
             PutItemRequest putItemRequest = PutItemRequest.builder()
                     .tableName(TABLES_TABLE_NAME)
                     .item(item)
                     .build();
 
             dynamoDbClient.putItem(putItemRequest);
+
+
 
             JSONObject response = new JSONObject().put("id", table.getId());
             return new APIGatewayProxyResponseEvent().withStatusCode(200).withBody(response.toString());
@@ -135,7 +126,6 @@ public class TableHandler implements RequestHandler<APIGatewayProxyRequestEvent,
 
     private JSONObject mapToTableJson(Map<String, AttributeValue> item) {
         JSONObject jsonObject = new JSONObject()
-
                 .put("id", Integer.parseInt(item.get("id").s()))
                 .put("number", Integer.parseInt(item.get("number").n()))
                 .put("places", Integer.parseInt(item.get("places").n()))

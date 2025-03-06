@@ -1,14 +1,14 @@
 package com.task11.dto;
 
-
 public class ReservationDTORequest {
     private Integer tableNumber;
     private String clientName;
     private String phoneNumber;
-    private String date;
-    private String slotTimeStart;
-    private String slotTimeEnd;
+    private String date;  // Format: "yyyy-MM-dd"
+    private String slotTimeStart;  // Format: "HH:mm"
+    private String slotTimeEnd;  // Format: "HH:mm"
 
+    // Parameterized constructor
     public ReservationDTORequest(Integer tableNumber, String clientName, String phoneNumber,
                                  String date, String slotTimeStart, String slotTimeEnd) {
         this.tableNumber = tableNumber;
@@ -18,7 +18,7 @@ public class ReservationDTORequest {
         this.slotTimeStart = slotTimeStart;
         this.slotTimeEnd = slotTimeEnd;
     }
-
+    // No-argument constructor (for JSON serialization/deserialization)
     public ReservationDTORequest() {
     }
 

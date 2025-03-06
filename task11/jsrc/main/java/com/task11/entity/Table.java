@@ -5,11 +5,11 @@ import java.util.Optional;
 import java.util.UUID;
 
 public class Table {
-    private  int id;
-    private  int number;
-    private  int places;
-    private  boolean isVip;
-    private  Optional<Integer> minOrder;
+    private int id;
+    private int number;
+    private int places;
+    private boolean isVip;
+    private Optional<Integer> minOrder;
 
     public Table(int id, int number, int places, boolean isVip, Integer minOrder) {
         this.id = id;
@@ -18,7 +18,7 @@ public class Table {
         this.isVip = isVip;
         this.minOrder = Optional.ofNullable(minOrder);
     }
-    public Table(){
+    public Table() {
 
     }
 

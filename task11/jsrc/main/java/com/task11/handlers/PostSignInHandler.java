@@ -5,11 +5,11 @@ import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
 
-
-import com.task11.auth.*;
-
+import com.task11.auth.SignIn;
 import org.json.JSONObject;
 import software.amazon.awssdk.services.cognitoidentityprovider.CognitoIdentityProviderClient;
+
+import com.task11.auth.SignIn;
 
 public class PostSignInHandler extends CognitoSupport implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
 
@@ -20,15 +20,7 @@ public class PostSignInHandler extends CognitoSupport implements RequestHandler<
     @Override
     public APIGatewayProxyResponseEvent handleRequest(APIGatewayProxyRequestEvent requestEvent, Context context) {
         try {
-            System.out.println("**...handleRequest SIGN_IN : " + requestEvent);
-//            SignIn signIn = SignIn.fromJson(requestEvent.getBody());
-            /// ///////////
-            JSONObject json = new JSONObject(requestEvent.getBody());
-            SignIn signIn =  new SignIn(
-                    json.optString("email", null),
-                    json.optString("password", null)
-            );
-            /// //////////////
+            SignIn signIn = SignIn.fromJson(requestEvent.getBody());
 
             String accessToken = cognitoSignIn(signIn.getEmail(), signIn.getPassword())
                     .authenticationResult()
@@ -43,4 +35,5 @@ public class PostSignInHandler extends CognitoSupport implements RequestHandler<
                     .withBody(new JSONObject().put("error", e.getMessage()).toString());
         }
     }
+
 }

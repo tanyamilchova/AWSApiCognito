@@ -4,22 +4,29 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
+import com.task11.auth.*;
+import com.task11.handlers.RouteNotImplementedHandler;
+import com.task11.handlers.ReservationHandler;
+import com.task11.handlers.RouteKey;
+import com.task11.handlers.TableHandler;
+import com.task11.entity.*;
+import com.task11.handlers.PostSignInHandler;
+import com.task11.handlers.PostSignUpHandler;
+import com.syndicate.deployment.model.RetentionSetting;
 import com.syndicate.deployment.annotations.environment.EnvironmentVariable;
 import com.syndicate.deployment.annotations.environment.EnvironmentVariables;
 import com.syndicate.deployment.annotations.lambda.LambdaHandler;
 import com.syndicate.deployment.annotations.resources.DependsOn;
+import com.syndicate.deployment.model.DeploymentRuntime;
 import com.syndicate.deployment.model.ResourceType;
-import com.syndicate.deployment.model.RetentionSetting;
-//import com.task11.dto.RouteKey;
-import com.task11.handlers.*;
 import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cognitoidentityprovider.CognitoIdentityProviderClient;
-
-import java.util.Map;
-
+import java.util.*;
 import static com.syndicate.deployment.model.environment.ValueTransformer.USER_POOL_NAME_TO_CLIENT_ID;
 import static com.syndicate.deployment.model.environment.ValueTransformer.USER_POOL_NAME_TO_USER_POOL_ID;
+
+
 
 @LambdaHandler(
 		lambdaName = "api_handler",
@@ -28,7 +35,6 @@ import static com.syndicate.deployment.model.environment.ValueTransformer.USER_P
 		aliasName = "${lambdas_alias_name}",
 		logsExpiration = RetentionSetting.SYNDICATE_ALIASES_SPECIFIED
 )
-@DependsOn(resourceType = ResourceType.COGNITO_USER_POOL, name = "${booking_userpool}")
 
 @EnvironmentVariables(value = {
 		@EnvironmentVariable(key = "region", value = "${region}"),
@@ -37,8 +43,12 @@ import static com.syndicate.deployment.model.environment.ValueTransformer.USER_P
 		@EnvironmentVariable(key = "COGNITO_ID", value = "${booking_userpool}",
 				valueTransformer = USER_POOL_NAME_TO_USER_POOL_ID),
 		@EnvironmentVariable(key = "CLIENT_ID", value = "${booking_userpool}",
-				valueTransformer = USER_POOL_NAME_TO_CLIENT_ID)
+				valueTransformer = USER_POOL_NAME_TO_CLIENT_ID),
+
 })
+
+@DependsOn(resourceType = ResourceType.COGNITO_USER_POOL, name = "${booking_userpool}")
+
 public class ApiHandler implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
 	private final CognitoIdentityProviderClient cognitoClient;
 	private final Map<RouteKey, RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent>> handlersByRouteKey;
@@ -54,7 +64,6 @@ public class ApiHandler implements RequestHandler<APIGatewayProxyRequestEvent, A
 
 	@Override
 	public APIGatewayProxyResponseEvent handleRequest(APIGatewayProxyRequestEvent requestEvent, Context context) {
-		context.getLogger().log("**....APIGatewayProxyRequestEvent requestEvent" + requestEvent);
 		return getHandler(requestEvent)
 				.handleRequest(requestEvent, context)
 				.withHeaders(headersForCORS);
@@ -66,7 +75,6 @@ public class ApiHandler implements RequestHandler<APIGatewayProxyRequestEvent, A
 
 	private RouteKey getRouteKey(APIGatewayProxyRequestEvent requestEvent) {
 		String path = requestEvent.getPath();
-		System.out.println("**....Path: " + path);
 		if (path.matches("/tables/\\d+")) {
 			return new RouteKey(requestEvent.getHttpMethod(), "/tables/{tableId}");
 		}
@@ -74,7 +82,6 @@ public class ApiHandler implements RequestHandler<APIGatewayProxyRequestEvent, A
 	}
 
 	private CognitoIdentityProviderClient initCognitoClient() {
-		System.out.println("**....initCognitoClient");
 		return CognitoIdentityProviderClient.builder()
 				.region(Region.of(System.getenv("region")))
 				.credentialsProvider(DefaultCredentialsProvider.create())
@@ -92,6 +99,7 @@ public class ApiHandler implements RequestHandler<APIGatewayProxyRequestEvent, A
 				new RouteKey("GET", "/reservations"), new ReservationHandler()
 		);
 	}
+
 
 	private Map<String, String> initHeadersForCORS() {
 		return Map.of(

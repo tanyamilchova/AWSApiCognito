@@ -1,15 +1,16 @@
 package com.task11.handlers;
 
+
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
-
+import com.task11.auth.SignUp;
+import com.task11.handlers.CognitoSupport;
 import org.json.JSONObject;
 import software.amazon.awssdk.services.cognitoidentityprovider.CognitoIdentityProviderClient;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.AttributeType;
-import com.task11.auth.*;
-
+import software.amazon.awssdk.services.cognitoidentityprovider.model.AttributeType;
 
 
 public class PostSignUpHandler extends CognitoSupport implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
@@ -20,21 +21,14 @@ public class PostSignUpHandler extends CognitoSupport implements RequestHandler<
 
     @Override
     public APIGatewayProxyResponseEvent handleRequest(APIGatewayProxyRequestEvent requestEvent, Context context) {
+        context.getLogger().log("Incoming request events " + requestEvent);
+
         try {
 
 
-            System.out.println("**...handleRequest SIGN_UP : " + requestEvent);
-            /// //////////////
-            JSONObject json = new JSONObject(requestEvent.getBody());
-            SignUp signUp = new SignUp(
-                    json.optString("email", null),
-                    json.optString("password", null),
-                    json.optString("firstName", null),
-                    json.optString("lastName", null)
-            );
-            context.getLogger().log("signup " + signUp);
-            /// ////////////////
 
+            SignUp signUp = SignUp.fromJson(requestEvent.getBody());
+            context.getLogger().log("signup " + signUp);
             String userId = cognitoSignUp(signUp)
                     .user().attributes().stream()
                     .filter(attr -> attr.name().equals("sub"))
@@ -44,7 +38,6 @@ public class PostSignUpHandler extends CognitoSupport implements RequestHandler<
             String idToken = confirmSignUp(signUp)
                     .authenticationResult()
                     .idToken();
-
             context.getLogger().log("signup " + signUp);
             context.getLogger().log("Id token" + idToken);
 

@@ -8,7 +8,7 @@ public class SignIn {
 
     public SignIn(String email, String password) {
         if (email == null || password == null) {
-            throw new IllegalArgumentException("Missing or incomplete data.");
+            throw new IllegalArgumentException("Bad request, try again");
         }
         this.email = email;
         this.password = password;
@@ -29,4 +29,5 @@ public class SignIn {
                 json.optString("password", null)
         );
     }
+
 }
