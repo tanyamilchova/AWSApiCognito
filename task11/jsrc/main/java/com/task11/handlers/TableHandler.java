@@ -150,7 +150,8 @@ public class TableHandler implements RequestHandler<APIGatewayProxyRequestEvent,
 
     private JSONObject mapToTableJson(Map<String, AttributeValue> item) {
         JSONObject jsonObject = new JSONObject()
-                .put("id", Integer.parseInt(item.get("id").s()))
+//                .put("id", Integer.parseInt(item.get("id").s()))
+                .put("id", Integer.parseInt(item.get("id").n()))
                 .put("number", Integer.parseInt(item.get("number").n()))
                 .put("places", Integer.parseInt(item.get("places").n()))
                 .put("isVip", item.get("isVip").bool());
