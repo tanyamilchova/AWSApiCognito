@@ -1,4 +1,4 @@
-package com.task11.dto;
+package com.task12.dto;
 
 public class ReservationDTORequest {
     private Integer tableNumber;

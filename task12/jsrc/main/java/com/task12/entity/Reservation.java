@@ -1,7 +1,7 @@
-package com.task11.entity;
+package com.task12.entity;
 
 import java.util.UUID;
-import com.task11.dto.ReservationDTORequest;
+import com.task12.dto.ReservationDTORequest;
 
 
 

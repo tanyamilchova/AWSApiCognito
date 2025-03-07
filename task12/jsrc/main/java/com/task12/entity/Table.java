@@ -1,4 +1,4 @@
-package com.task11.entity;
+package com.task12.entity;
 
 import org.json.JSONObject;
 import java.util.Optional;

@@ -1,17 +1,17 @@
-package com.task11;
+package com.task12;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
-import com.task11.auth.*;
-import com.task11.handlers.RouteNotImplementedHandler;
-import com.task11.handlers.ReservationHandler;
-import com.task11.handlers.RouteKey;
-import com.task11.handlers.TableHandler;
-import com.task11.entity.*;
-import com.task11.handlers.PostSignInHandler;
-import com.task11.handlers.PostSignUpHandler;
+import com.task12.auth.*;
+import com.task12.handlers.RouteNotImplementedHandler;
+import com.task12.handlers.ReservationHandler;
+import com.task12.handlers.RouteKey;
+import com.task12.handlers.TableHandler;
+import com.task12.entity.*;
+import com.task12.handlers.PostSignInHandler;
+import com.task12.handlers.PostSignUpHandler;
 import com.syndicate.deployment.model.RetentionSetting;
 import com.syndicate.deployment.annotations.environment.EnvironmentVariable;
 import com.syndicate.deployment.annotations.environment.EnvironmentVariables;

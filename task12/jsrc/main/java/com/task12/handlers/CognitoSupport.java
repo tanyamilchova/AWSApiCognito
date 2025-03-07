@@ -1,4 +1,4 @@
-package com.task11.handlers;
+package com.task12.handlers;
 
 import software.amazon.awssdk.services.cognitoidentityprovider.CognitoIdentityProviderClient;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.AdminCreateUserRequest;
@@ -11,7 +11,7 @@ import software.amazon.awssdk.services.cognitoidentityprovider.model.AttributeTy
 import software.amazon.awssdk.services.cognitoidentityprovider.model.AuthFlowType;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.ChallengeNameType;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.DeliveryMediumType;
-import com.task11.auth.SignUp;
+import com.task12.auth.SignUp;
 import java.util.Map;
 
 public abstract class CognitoSupport {
