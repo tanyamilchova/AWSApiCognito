@@ -107,8 +107,8 @@ public class TableHandler implements RequestHandler<APIGatewayProxyRequestEvent,
 
             ///
             if (table.getId() != 0) {
-//                item.put("id", AttributeValue.builder().s(String.valueOf(table.getId())).build());
-                item.put("id", AttributeValue.builder().n(String.valueOf(table.getId())).build());
+                item.put("id", AttributeValue.builder().s(String.valueOf(table.getId())).build());
+
             } else {
                 throw new IllegalArgumentException("ID cannot be null");
             }

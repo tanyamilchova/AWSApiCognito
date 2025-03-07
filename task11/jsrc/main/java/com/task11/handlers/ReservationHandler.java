@@ -163,8 +163,7 @@ public class ReservationHandler implements RequestHandler<APIGatewayProxyRequest
         context.getLogger().log("Saving reservation...");
 
         Map<String, AttributeValue> item = new HashMap<>();
-//        item.put("id", AttributeValue.builder().s(reservation.getReservationId()).build());
-        item.put("id", AttributeValue.builder().n(reservation.getReservationId()).build());
+        item.put("id", AttributeValue.builder().s(reservation.getReservationId()).build());
 
         item.put("reservationId", AttributeValue.builder().s(reservation.getReservationId()).build());
         item.put("tableNumber", AttributeValue.builder().n(String.valueOf(reservation.getTableNumber())).build());
