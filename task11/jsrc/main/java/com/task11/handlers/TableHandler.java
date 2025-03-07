@@ -64,9 +64,10 @@ public class TableHandler implements RequestHandler<APIGatewayProxyRequestEvent,
                     .withStatusCode(200)
                     .withBody(new JSONObject().put("tables", tablesArray).toString());
         } catch (Exception e) {
+            e.printStackTrace();
             return new APIGatewayProxyResponseEvent()
                     .withStatusCode(500)
-                    .withBody(new JSONObject().put("error", "Failed to fetch tables").toString());
+                    .withBody(new JSONObject().put("error", "Failed to fetch all tables").toString());
         }
     }
 
@@ -74,7 +75,9 @@ public class TableHandler implements RequestHandler<APIGatewayProxyRequestEvent,
         try {
             GetItemRequest getItemRequest = GetItemRequest.builder()
                     .tableName(TABLES_TABLE_NAME)
-                    .key(Map.of("id", AttributeValue.builder().s(tableId).build()))
+                    // *********
+//  Check ById                  .key(Map.of("id", AttributeValue.builder().s(tableId).build()))
+                    .key(Map.of("id", AttributeValue.builder().n(tableId).build()))
                     .build();
 
             GetItemResponse getItemResponse = dynamoDbClient.getItem(getItemRequest);
@@ -91,6 +94,7 @@ public class TableHandler implements RequestHandler<APIGatewayProxyRequestEvent,
                     .withStatusCode(200)
                     .withBody(tableJson.toString());
         } catch (Exception e) {
+            e.printStackTrace();
             return new APIGatewayProxyResponseEvent()
                     .withStatusCode(500)
                     .withBody(new JSONObject().put("error", "Failed to fetch table").toString());
