@@ -24,20 +24,20 @@ public class PostSignUpHandler extends CognitoSupport implements RequestHandler<
         context.getLogger().log("Incoming request events " + requestEvent);
 
         try {
-
-
-
             SignUp signUp = SignUp.fromJson(requestEvent.getBody());
             context.getLogger().log("signup " + signUp);
+
             String userId = cognitoSignUp(signUp)
                     .user().attributes().stream()
                     .filter(attr -> attr.name().equals("sub"))
                     .map(AttributeType::value)
                     .findAny()
                     .orElseThrow(() -> new RuntimeException("Sub not found."));
+
             String idToken = confirmSignUp(signUp)
                     .authenticationResult()
                     .idToken();
+
             context.getLogger().log("signup " + signUp);
             context.getLogger().log("Id token" + idToken);
 

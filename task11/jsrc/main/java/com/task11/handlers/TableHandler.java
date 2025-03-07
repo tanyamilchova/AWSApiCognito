@@ -6,7 +6,7 @@ import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.*;
-import com.task11.entity.Table;
+import com.task11.entity.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -21,6 +21,8 @@ public class TableHandler implements RequestHandler<APIGatewayProxyRequestEvent,
 
     @Override
     public APIGatewayProxyResponseEvent handleRequest(APIGatewayProxyRequestEvent requestEvent, Context context) {
+        context.getLogger().log("Enter TABLE handleRequest " + requestEvent);
+
         String httpMethod = requestEvent.getHttpMethod();
         String path = requestEvent.getPath();
 
@@ -35,10 +37,16 @@ public class TableHandler implements RequestHandler<APIGatewayProxyRequestEvent,
                 context.getLogger().log("Parse error " + e.getMessage());
             }
         }
-
-        return new APIGatewayProxyResponseEvent()
+        /// /
+        APIGatewayProxyResponseEvent responseEvent = new APIGatewayProxyResponseEvent()
                 .withStatusCode(405)
                 .withBody(new JSONObject().put("error", "Method Not Allowed").toString());
+        /// /
+//        return new APIGatewayProxyResponseEvent()
+//                .withStatusCode(405)
+//                .withBody(new JSONObject().put("error", "Method Not Allowed").toString());
+        context.getLogger().log("APIGatewayProxyResponseEvent responseEvent " + responseEvent);
+        return responseEvent;
     }
 
     private APIGatewayProxyResponseEvent getAllTables() {
@@ -92,32 +100,44 @@ public class TableHandler implements RequestHandler<APIGatewayProxyRequestEvent,
     private APIGatewayProxyResponseEvent addTable(String body) {
         Map<String, AttributeValue> item = new LinkedHashMap<>();
         try {
-            Table table = Table.fromJson(body);
+                        Table table = Table.fromJson(body);
 
 
-            item.put("id", AttributeValue.builder().s(String.valueOf(table.getId())).build());
+            System.out.println("Table.fromJson(body) " + table);
+
+            ///
+            if (table.getId() != 0) {
+//                item.put("id", AttributeValue.builder().s(String.valueOf(table.getId())).build());
+                item.put("id", AttributeValue.builder().n(String.valueOf(table.getId())).build());
+            } else {
+                throw new IllegalArgumentException("ID cannot be null");
+            }
+            /// ///
+
+//            item.put("id", AttributeValue.builder().s(String.valueOf(table.getId())).build());
+            item.put("id", AttributeValue.builder().n(String.valueOf(table.getId())).build());
             item.put("number", AttributeValue.builder().n(String.valueOf(table.getNumber())).build());
             item.put("places", AttributeValue.builder().n(String.valueOf(table.getPlaces())).build());
             item.put("isVip", AttributeValue.builder().bool(table.isVip()).build());
 
+            System.out.println("MinOrder: " + table.getMinOrder());
+
             table.getMinOrder().ifPresent(minOrder ->
                     item.put("minOrder", AttributeValue.builder().n(String.valueOf(minOrder)).build())
             );
-
-
 
             PutItemRequest putItemRequest = PutItemRequest.builder()
                     .tableName(TABLES_TABLE_NAME)
                     .item(item)
                     .build();
 
+            System.out.println("Inserting into DynamoDB: " + item);
             dynamoDbClient.putItem(putItemRequest);
-
-
 
             JSONObject response = new JSONObject().put("id", table.getId());
             return new APIGatewayProxyResponseEvent().withStatusCode(200).withBody(response.toString());
         } catch (Exception e) {
+            e.printStackTrace();
             return new APIGatewayProxyResponseEvent()
                     .withStatusCode(400)
                     .withBody(new JSONObject().put("error", "Invalid Request Data").toString());
